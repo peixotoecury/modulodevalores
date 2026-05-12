@@ -19,7 +19,7 @@ tbody td select:hover{border-color:#00A9E0!important;}
 @media(max-width:850px){.hdr{padding:9px 12px}.logo-img{height:34px}.hdiv{display:none}.page{padding:10px}.sbar{grid-template-columns:repeat(2,1fr)}.fg2,.ai-cols{grid-template-columns:1fr}.span2{grid-column:span 1}.verba-grid{grid-template-columns:1fr 1fr}.verba-head{display:none}.verba-grid>*{min-width:0}.tabs{padding:0 8px}.tab{font-size:10px;padding:10px}.tbar input,.tbar select{flex:1 1 150px}.mo{align-items:flex-end}.mb{border-radius:14px 14px 0 0;max-height:95vh}}
 </style></head><body>
 <div class="hdr"><img src="https://www.peixotoecury.com.br/assets/images/ui/logo-light.png" class="logo-img" alt="Peixoto e Cury"><div class="hdiv"></div><div class="hinfo"><h1>⚖️ Controle de Requantificação — Bridgestone</h1><div class="dt" id="hdt"></div></div><button class="hbtn" onclick="openNovo()">＋ Nova Solicitação</button></div>
-<div class="tabs"><div class="tab active" onclick="goTab('painel')">📊 Painel Geral</div><div class="tab" onclick="goTab('ia')">🤖 Lançamento IA</div><div class="tab" onclick="goTab('calc')">🧮 Calculadora</div><div class="tab" onclick="goTab('revisao')">🔍 Revisão</div><div class="tab" onclick="goTab('lancamento')">✅ Lançamento EVV/CGV</div><div class="tab" onclick="goTab('alto')">⚠️ > R$ 400 mil</div><div class="tab" onclick="goTab('base')">📋 Planilha</div></div>
+<div class="tabs"><div class="tab active" onclick="goTab('painel')">📊 Painel Geral</div><div class="tab" onclick="goTab('ia')">🤖 Lançamento IA</div><div class="tab" onclick="goTab('calc')">🧮 Calculadora</div><div class="tab" onclick="goTab('revisao')">🔍 Revisão</div><div class="tab" onclick="goTab('lancamento')">✅ Lançamento EVV/CGV</div><div class="tab" onclick="goTab('concluidos')">🏁 Lançamentos Concluídos</div><div class="tab" onclick="goTab('alto')">⚠️ > R$ 400 mil</div><div class="tab" onclick="goTab('base')">📋 Planilha</div></div>
 <div id="p-painel" class="page active">
 
 <!-- STATS -->
@@ -68,8 +68,7 @@ tbody td select:hover{border-color:#00A9E0!important;}
   <th style="min-width:150px">Reclamante</th>
   <th style="min-width:150px">Tipo de Cálculo</th>
   <th style="width:50px;text-align:center">Adv</th>
-  <th style="width:65px;background:#1e3a8a;text-align:center" title="Contingency">📋 C.</th>
-  <th style="width:65px;background:#065f46;text-align:center" title="Forecast">📈 F.</th>
+  <th style="width:50px;text-align:center;background:#1a3a5c" title="Relatórios (Contingency/Forecast)">Rel.</th>
   <th>Fluxo — da Solicitação ao eLaw</th>
 </tr></thead>
 <tbody id="tbody"></tbody>
@@ -113,7 +112,7 @@ tbody td select:hover{border-color:#00A9E0!important;}
       </label>
     </div>
   </div>
-</div><div class="ua" onclick="document.getElementById('ia-file').click()" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="dropIA(event)"><input id="ia-file" type="file" accept=".xlsx,.xls,.pdf,.txt,.doc,.docx" style="display:none" onchange="uploadIA(event)"><i class="fa-solid fa-cloud-arrow-up" style="font-size:28px;color:#00A9E0"></i><p><b>Clique ou arraste a inicial/cálculo</b></p><p class="small">XLSX lê valores; PDF/texto identifica pedidos e valores quando disponíveis.</p></div><div id="ia-file-info" class="small" style="margin-top:8px"></div><button id="btn-ia-auto" class="btn btn-dk" style="width:100%;justify-content:center;margin-top:8px;gap:8px" onclick="preencherComIA()"><i class="fa-solid fa-wand-magic-sparkles"></i> ✨ Preencher valores com IA (Claude)</button><div id="ia-status" style="margin-top:6px;font-size:11px;color:#6B7F93;min-height:18px"></div><button class="btn btn-cy" style="width:100%;justify-content:center;margin-top:6px" onclick="gerarSolicitacaoIA()">✓ Gerar solicitação e enviar para revisão</button></div><div><div class="card"><div class="card-hdr">2. Quadro de verbas/pedidos — padrão Bridgestone</div><div class="small" style="margin-bottom:8px">Para inicial sem valor individual, o sistema marca o pedido e captura o Valor da Causa. Para cálculo/planilha, separa principal, correção monetária e juros.</div><div id="verbas"></div><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn btn-out btn-sm" onclick="addVerba()">＋ Verba manual</button><button class="btn btn-out btn-sm" onclick="limparIA()">Limpar</button><button class="btn btn-dk btn-sm" onclick="carregarDaBase()">Buscar valores da planilha</button></div><div class="totalbar"><span>Total atualizado</span><span id="ia-total">R$ 0,00</span></div>
+</div><div class="ua" onclick="document.getElementById('ia-file').click()" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="dropIA(event)"><input id="ia-file" type="file" accept=".xlsx,.xls,.pdf,.txt,.doc,.docx" style="display:none" onchange="uploadIA(event)"><i class="fa-solid fa-cloud-arrow-up" style="font-size:28px;color:#00A9E0"></i><p><b>Clique ou arraste a inicial/cálculo</b></p><p class="small">XLSX lê valores; PDF/texto identifica pedidos e valores quando disponíveis.</p></div><div id="ia-file-info" class="small" style="margin-top:8px"></div><button id="btn-ia-auto" class="btn btn-dk" style="width:100%;justify-content:center;margin-top:8px;gap:8px" onclick="preencherComIA()"><i class="fa-solid fa-wand-magic-sparkles"></i> ✨ Preencher valores com IA (Claude)</button><div id="ia-status" style="margin-top:6px;font-size:11px;color:#6B7F93;min-height:18px"></div><button class="btn btn-cy" style="width:100%;justify-content:center;margin-top:6px" onclick="gerarSolicitacaoIA()">✓ Gerar solicitação e enviar para revisão</button></div><div><div class="card"><div class="card-hdr">2. Quadro de verbas/pedidos — padrão Bridgestone</div><div class="small" style="margin-bottom:8px">Para inicial sem valor individual, o sistema marca o pedido e captura o Valor da Causa. Para cálculo/planilha, separa principal, correção monetária e juros.</div><div id="verbas"></div><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn btn-out btn-sm" onclick="addVerba()">＋ Verba manual</button><button class="btn btn-out btn-sm" onclick="limparIA()">Limpar</button><button class="btn btn-dk btn-sm" onclick="carregarDaBase()">Buscar valores da planilha</button></div><div class="totalbar"><span>Total</span><span id="ia-total">R$ 0,00</span></div>
 <div id="ia-alert"></div>
 
 <!-- ATUALIZAÇÃO PÓS-LIQUIDAÇÃO -->
@@ -302,7 +301,7 @@ tbody td select:hover{border-color:#00A9E0!important;}
       placeholder="A descri&#231;&#227;o aparecer&#225; aqui ap&#243;s carregar um documento..."></textarea>
   </div>
 
-<div id="p-revisao" class="page"><div id="revisao-content"></div></div><div id="p-lancamento" class="page"><div id="lancamento-content"></div></div><div id="p-alto" class="page"><div id="alto-content"></div></div><div id="p-base" class="page"><div id="base-content"></div></div>
+<div id="p-revisao" class="page"><div id="revisao-content"></div></div><div id="p-lancamento" class="page"><div id="lancamento-content"></div></div><div id="p-concluidos" class="page"><div id="concluidos-content"></div></div><div id="p-alto" class="page"><div id="alto-content"></div></div><div id="p-base" class="page"><div id="base-content"></div></div>
 <div class="mo" id="mo-det"><div class="mb"><div class="mh"><h3 id="det-title">Detalhe</h3><button class="mx" onclick="closeMo('mo-det')">✕</button></div><div class="mbody" id="det-body"></div><div class="mfooter" id="det-footer"></div></div></div>
 <div class="mo" id="mo-email"><div class="mb"><div class="mh"><h3 id="em-title">E-mail</h3><button class="mx" onclick="closeMo('mo-email')">✕</button></div><div class="mbody" id="em-body"></div><div class="mfooter"><button class="btn btn-out btn-sm" onclick="closeMo('mo-email')">Fechar</button><button class="btn btn-cy btn-sm" onclick="abrirEmail()">Abrir no Outlook</button></div></div></div>
 
@@ -357,6 +356,25 @@ tbody td select:hover{border-color:#00A9E0!important;}
 <div class="mfooter">
   <button class="btn btn-out" onclick="closeMo('mo-lanc')">Cancelar</button>
   <button class="btn btn-dk" onclick="executarLanc()">✅ Confirmar OK de Lançamento</button>
+</div></div></div>
+
+<!-- MODAL OK REVISÃO -->
+<div class="mo" id="mo-rev"><div class="mb" style="max-width:460px"><div class="mh" style="background:#065f46"><h3>✅ OK Revisão</h3><button class="mx" onclick="closeMo('mo-rev')">✕</button></div><div class="mbody">
+  <div id="rev-recl" style="font-weight:800;color:#003B5C;font-size:13px;margin-bottom:2px"></div>
+  <div id="rev-proc" style="font-size:10px;color:#6B7F93;font-family:'IBM Plex Mono',monospace;margin-bottom:14px"></div>
+  <div class="fg"><label>Data da Revisão</label>
+    <input class="fc" id="rev-dt" placeholder="dd/mm/aaaa" style="font-size:13px;font-weight:700">
+  </div>
+  <div class="fg"><label>Observações da Revisão (opcional)</label>
+    <textarea class="fc textarea" id="rev-obs" placeholder="Ex: valores conferidos, pendência de honorários periciais, diferença de 2% no FGTS..." style="min-height:90px"></textarea>
+  </div>
+  <div style="background:#d1fae5;border:1px solid #6ee7b7;border-radius:8px;padding:9px 12px;font-size:11px;color:#065f46;font-weight:700;margin-top:4px">
+    ✅ Ao confirmar, o status muda para <b>Revisado pelo Advogado</b> e o processo fica disponível para lançamento.
+  </div>
+</div>
+<div class="mfooter">
+  <button class="btn btn-out" onclick="closeMo('mo-rev')">Cancelar</button>
+  <button class="btn btn-ok" onclick="confirmarRevisao()">✅ Confirmar Revisão</button>
 </div></div></div>
 
 <!-- MODAL: NOVO CASO NO PAINEL -->
@@ -493,7 +511,7 @@ function num(v){
 }
 function save(){localStorage.setItem('pc_req_bridge_data',JSON.stringify(DATA))}function td(){return new Date().toLocaleDateString('pt-BR')}
 function stCls(s){s=String(s||'').toLowerCase();if(s.includes('concl'))return'st-ok';if(s.includes('aguardar'))return'st-ag';if(s.includes('revisado'))return'st-rev';if(s.includes('atras'))return'st-late';return'st-pend'}function st(s){return `<span class="st ${stCls(s)}">${e(s||'-')}</span>`}function av(a){let c={'JPE':'av-jpe','NRG':'av-nrg','ABR':'av-abr','CGV':'av-cgv','EVV':'av-evv'}[String(a).trim()]||'av-def';return `<span class="av ${c}">${e(a||'-')}</span>`}function totalRec(d){let arr=VALORES_BASE[d.proc]||d.verbas||[];return arr.reduce((s,v)=>s+num(v.total||v.totalAtualizado),0)}
-function goTab(t){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));let idx=['painel','ia','calc','revisao','lancamento','alto','base'].indexOf(t);document.querySelectorAll('.tab')[idx].classList.add('active');document.getElementById('p-'+t).classList.add('active'); if(t==='revisao')renderRevisao(); if(t==='lancamento')renderLancamento(); if(t==='alto')renderAlto(); if(t==='base')renderBase(); if(t==='calc')initCalc();}
+function goTab(t){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));let idx=['painel','ia','calc','revisao','lancamento','concluidos','alto','base'].indexOf(t);document.querySelectorAll('.tab')[idx].classList.add('active');document.getElementById('p-'+t).classList.add('active'); if(t==='revisao')renderRevisao(); if(t==='lancamento')renderLancamento(); if(t==='concluidos')renderConcluidos(); if(t==='alto')renderAlto(); if(t==='base')renderBase(); if(t==='calc')initCalc();}
 function init(){
   patchDrawVerbas();document.getElementById('hdt').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});renderStats();renderFilters();renderTabela();renderVerbas();}
 function renderFilters(){
@@ -577,19 +595,22 @@ function renderTabela(){
     )+'</td>';
   }
 
+
   /* ── FLUXO ── */
   function cellFluxo(d){
     var stt=String(d.status||'').toLowerCase();
-    var concl=stt.includes('concl');
-    var revisado=stt.includes('revisado');
-    var emRev=(stt.includes('revis')||stt.includes('pendente'))&&!revisado;
-    var temRev=!!d.revisor;
+    // Status hierarchy (ordem do fluxo)
+    var concl   = stt.includes('concl');
+    var revisado = !concl && (stt.includes('revisado') || stt.includes('lançamento'));
+    var emRev   = !concl && !revisado && (stt.includes('revis') || stt.includes('pendente') || stt.includes('atras') || stt.includes('repr'));
+    var temRev  = !!d.revisor;
 
     function badge(ico,top,bot,done,active,oc){
       var bg=done?'#f0fdf4':active?'#eff6ff':'#F9FAFB';
       var br=done?'#6ee7b7':active?'#93c5fd':'#E5E7EB';
       var tc=done?'#065f46':active?'#1e3a8a':'#9CA3AF';
-      var cur=(oc&&(active||done))?'pointer':'default';
+      var clickable=!!(oc&&(active||done));
+      var cur=clickable?'pointer':'default';
       var pulse=active?'animation:pulse 2s infinite;':'';
       return '<div '+(oc?'onclick="'+oc+'"':'')+
         ' style="display:inline-flex;flex-direction:column;align-items:center;width:80px;padding:5px 4px;border-radius:9px;border:1.5px solid '+br+
@@ -601,7 +622,6 @@ function renderTabela(){
     }
 
     var arr='<div style="color:#D1D5DB;font-size:18px;flex-shrink:0;margin:0 1px;align-self:center">›</div>';
-
     var b1,b2,b3,b4;
 
     // 1. Revisor + eLaw — dropdowns coloridos inline
@@ -610,18 +630,19 @@ function renderTabela(){
       selSigla(d.id,'revisor',d.revisor||'',REVS,'Revisor')+
       selSigla(d.id,'respLanc',d.respLanc||'',LANCS,'eLaw')+
     '</div>';
+
     // 2. E-mail ao revisor
     if(revisado||concl)
-      b2=badge('✉','Enviado',d.revisor||'',true,false,temRev?'event.stopPropagation();emailRevisor('+d.id+')':'');
-    else if(temRev&&emRev)
-      b2=badge('✉','Enviar',d.revisor,false,true,'event.stopPropagation();emailRevisor('+d.id+')');
+      b2=badge('✉','Enviado',d.revisor||'',true,false,'event.stopPropagation();emailRevisor('+d.id+')');
+    else if(temRev)
+      b2=badge('✉','Enviar',d.revisor||'',false,true,'event.stopPropagation();emailRevisor('+d.id+')');
     else
       b2=badge('✉','E-mail','—',false,false,'');
 
-    // 3. OK Revisão
-    if(revisado||concl)
-      b3=badge('✅','OK Rev.',d.dtRetRev||'',true,false,'');
-    else if(emRev&&temRev)
+    // 3. OK Revisão — clicável sempre que há revisor e não está concluído
+    if(concl||revisado)
+      b3=badge('✅','OK Rev.',d.dtRetRev||'—',true,false,'event.stopPropagation();aprovar('+d.id+')');
+    else if(temRev)
       b3=badge('🔍','OK Rev.','clique aqui',false,true,'event.stopPropagation();aprovar('+d.id+')');
     else
       b3=badge('🔍','OK Rev.','—',false,false,'');
@@ -643,31 +664,65 @@ function renderTabela(){
     '</td>';
   }
 
+  /* ── LINHA EXPANSÍVEL Contingency / Forecast ── */
+  function cellPainel(d){
+    var hasC=d.inclContingency||String(d.tipoRelatorio||'').includes('Contingency');
+    var hasF=d.inclForecast||String(d.tipoRelatorio||'').includes('Forecast');
+    if(!hasC&&!hasF) return '<td style="padding:4px 6px;text-align:center">'+
+      '<button onclick="event.stopPropagation();openPainelRapido('+d.id+',event)" style="font-size:9px;color:#bfdbfe;background:none;border:none;cursor:pointer;padding:2px 5px;border-radius:4px" title="Adicionar ao relatório">＋</button></td>';
+    var badges='';
+    if(hasC) badges+='<span style="font-size:9px;font-weight:900;color:#1e3a8a;background:#dbeafe;padding:1px 5px;border-radius:4px;border:1px solid #93c5fd">C</span>';
+    if(hasF) badges+=(badges?' ':'')+'<span style="font-size:9px;font-weight:900;color:#065f46;background:#d1fae5;padding:1px 5px;border-radius:4px;border:1px solid #6ee7b7">F</span>';
+    return '<td style="padding:4px 6px;text-align:center;cursor:pointer" onclick="event.stopPropagation();openPainelRapido('+d.id+',event)" title="Editar relatório">'+badges+'</td>';
+  }
+
   document.getElementById('tbody').innerHTML=rows.slice(0,400).map(function(d){
     var concl=String(d.status||'').toLowerCase().includes('concl');
-    return '<tr onclick="openDet('+d.id+')" style="'+(concl?'background:#FAFCFD;opacity:.8':'')+'">'+
-      // Pasta + Processo
+    var hasC=d.inclContingency||String(d.tipoRelatorio||'').includes('Contingency');
+    var hasF=d.inclForecast||String(d.tipoRelatorio||'').includes('Forecast');
+    var hasObs=d.obsAdv||d.obsRev;
+    var rowStyle=concl?'background:#FAFCFD;opacity:.85':'';
+
+    var mainRow='<tr onclick="openDet('+d.id+')" style="'+rowStyle+'">'+
       '<td style="padding:7px 8px;white-space:nowrap">'+
         '<b style="color:#003B5C;font-size:11px">'+e(d.pasta)+'</b><br>'+
         '<span style="font-size:9px;color:#9CA3AF;font-family:\'IBM Plex Mono\',monospace">'+e(d.proc)+'</span>'+
       '</td>'+
-      // Reclamante + data solic
       '<td style="padding:7px 8px">'+
         '<div style="font-weight:700;font-size:11px;color:#17324D">'+e(d.recl)+'</div>'+
         '<div style="font-size:9px;color:#9CA3AF">'+e(d.dtSolic||'')+'</div>'+
       '</td>'+
-      // Tipo de cálculo — dropdown inline
       '<td style="padding:5px 8px" onclick="event.stopPropagation()">'+selCalc(d)+'</td>'+
-      // Adv — dropdown colorido
       '<td style="padding:5px 6px;text-align:center" onclick="event.stopPropagation()">'+selSigla(d.id,'adv',d.adv||'',ADVS,'Adv')+'</td>'+
-      // Contingency
-      cellC(d)+
-      // Forecast
-      cellF(d)+
-      // Fluxo com dropdowns de revisor e eLaw embutidos
+      cellPainel(d)+
       cellFluxo(d)+
     '</tr>';
-  }).join('')||'<tr><td colspan="7" style="text-align:center;padding:30px;color:#9CA3AF;font-size:12px">Nenhum registro encontrado</td></tr>';
+
+    // Sub-row expansível: Observações e/ou detalhes do relatório
+    var subParts=[];
+    if(hasC||hasF){
+      var rf='';
+      if(hasC)rf+='<span style="font-size:10px;font-weight:800;color:#1e3a8a;background:#dbeafe;padding:2px 8px;border-radius:6px;border:1px solid #93c5fd">📋 Contingency</span> ';
+      if(hasF)rf+='<span style="font-size:10px;font-weight:800;color:#065f46;background:#d1fae5;padding:2px 8px;border-radius:6px;border:1px solid #6ee7b7">📈 Forecast</span>';
+      if(d.mesRef)rf+=' <span style="font-size:10px;color:#6B7F93">📅 '+e(d.mesRef)+'</span>';
+      subParts.push(rf);
+    }
+    if(d.obsAdv)subParts.push('<span style="color:#6B7F93;font-size:10px">📝 <b>Adv:</b> '+e(d.obsAdv)+'</span>');
+    if(d.obsRev)subParts.push('<span style="color:#065f46;font-size:10px">🔍 <b>Rev:</b> '+e(d.obsRev)+'</span>');
+
+    var subRow='';
+    if(subParts.length){
+      subRow='<tr style="'+rowStyle+'">'+
+        '<td colspan="6" style="padding:2px 8px 7px 20px;border-bottom:1px solid rgba(0,59,92,.06)">'+
+          '<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">'+subParts.join('<span style="color:#D1D5DB">·</span>')+
+          ' <button onclick="event.stopPropagation();openPainelRapido('+d.id+',event)" style="font-size:9px;color:#00A9E0;background:none;border:none;cursor:pointer;padding:0">✏️ editar</button>'+
+          '</div>'+
+        '</td>'+
+      '</tr>';
+    }
+
+    return mainRow+subRow;
+  }).join('')||'<tr><td colspan="6" style="text-align:center;padding:30px;color:#9CA3AF;font-size:12px">Nenhum registro encontrado</td></tr>';
   document.getElementById('tinfo').textContent=rows.length+' de '+DATA.length+' registros';
 }
 
@@ -781,8 +836,82 @@ function salvarPainelRapido(){
   if(d.inclForecast) msg.push('Forecast');
   toast(msg.length?'✅ Incluído em: '+msg.join(' + '):'Retirado de ambos os relatórios');
 }
-function aprovar(id){var d=DATA.find(function(x){return x.id===id});d.status='Revisado pelo Advogado';d.dtRetRev=td();if(!d.revisor)d.revisor='ABR';save();renderStats();renderTabela();closeMo('mo-det');toast('✅ Revisão OK — pronto para lançamento')}
+var _aprovarId = null;
+function aprovar(id){
+  _aprovarId=id;
+  var d=DATA.find(function(x){return x.id===id});
+  if(!d)return;
+  document.getElementById('rev-recl').textContent=d.recl||'—';
+  document.getElementById('rev-proc').textContent=d.proc||'';
+  document.getElementById('rev-dt').value=d.dtRetRev||td();
+  document.getElementById('rev-obs').value=d.obsRev||'';
+  openMo('mo-rev');
+}
+function confirmarRevisao(){
+  var d=DATA.find(function(x){return x.id===_aprovarId});
+  if(!d)return;
+  var dt=document.getElementById('rev-dt').value.trim()||td();
+  var obs=document.getElementById('rev-obs').value.trim();
+  d.status='Revisado pelo Advogado';
+  d.dtRetRev=dt;
+  if(obs)d.obsRev=obs;
+  if(!d.revisor)d.revisor='ABR';
+  save();renderStats();renderTabela();closeMo('mo-rev');closeMo('mo-det');
+  toast('✅ Revisão OK — pronto para lançamento');
+}
 function confirmarLanc(id){var d=DATA.find(function(x){return x.id===id});d.status='Lançamento Concluído';d.dtLanc=td();if(!d.respLanc)d.respLanc='EVV';save();renderStats();renderTabela();closeMo('mo-det');closeMo('mo-lanc');toast('✅ Lançamento confirmado')}
+
+function renderConcluidos(){
+  var rows=DATA.filter(function(d){return String(d.status||'').toLowerCase().includes('concl');});
+  var CORES={'JPE':'#1e3a8a,#dbeafe','NRG':'#065f46,#d1fae5','ABR':'#9d174d,#fce7f3','CGV':'#075985,#e0f2fe','EVV':'#5b21b6,#ede9fe','GSM':'#92400e,#fef3c7','RFE':'#374151,#f3f4f6','JJS':'#003B5C,#EAF6FB','BSO':'#991b1b,#fee2e2','TRF':'#374151,#f3f4f6'};
+  function sigla(s){if(!s||s==='-')return '<span style="color:#D1D5DB;font-size:10px">—</span>';var clr=(CORES[s]||'#374151,#F3F4F6').split(',');return '<span style="font-size:10px;font-weight:900;color:'+clr[0]+';background:'+clr[1]+';padding:2px 7px;border-radius:6px">'+e(s)+'</span>';}
+  var html='<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap">';
+  html+='<div style="background:#d1fae5;border:1px solid #6ee7b7;border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:#065f46">🏁 '+rows.length+' lançamento(s) concluído(s)</div>';
+  html+='<input id="concl-busca" placeholder="🔍 Buscar..." oninput="renderConcluidos()" style="flex:1 1 180px;background:#F4F8FB;border:1px solid rgba(0,59,92,.15);border-radius:7px;padding:7px 10px;font-size:11px;outline:none;font-family:inherit">';
+  html+='<button class="btn btn-out btn-sm" onclick="exportConcluidosXLSX()">⬇ Excel</button>';
+  html+='</div>';
+
+  var q=(document.getElementById('concl-busca')||{}).value||'';
+  if(q) rows=rows.filter(function(d){return [d.pasta,d.proc,d.recl,d.calc,d.adv,d.revisor,d.respLanc].some(function(x){return String(x||'').toLowerCase().includes(q.toLowerCase());});});
+
+  if(!rows.length){html+='<div style="text-align:center;padding:40px;color:#9CA3AF;font-size:13px">Nenhum lançamento concluído encontrado.</div>';document.getElementById('concluidos-content').innerHTML=html;return;}
+
+  html+='<div class="tw"><div class="ts"><table><thead><tr>'+
+    '<th>Pasta</th><th>Reclamante</th><th>Tipo de Cálculo</th>'+
+    '<th style="text-align:center">Adv</th><th style="text-align:center">Revisor</th><th style="text-align:center">eLaw</th>'+
+    '<th>Data Revisão</th><th>Obs. Revisão</th><th>Data Lançamento</th><th></th>'+
+  '</tr></thead><tbody>';
+
+  rows.forEach(function(d){
+    var total=totalRec(d);
+    html+='<tr onclick="openDet('+d.id+')" style="cursor:pointer" onmouseover="this.style.background=\'rgba(0,169,224,.05)\'" onmouseout="this.style.background=\'\'">';
+    html+='<td><b style="color:#003B5C">'+e(d.pasta||'—')+'</b><br><span style="font-size:9px;color:#9CA3AF;font-family:\'IBM Plex Mono\',monospace">'+e(d.proc||'')+'</span></td>';
+    html+='<td><div style="font-weight:700;color:#17324D">'+e(d.recl||'—')+'</div><div style="font-size:9px;color:#9CA3AF">Solic: '+e(d.dtSolic||'—')+'</div></td>';
+    html+='<td style="font-size:10px">'+e(d.calc||'—')+'</td>';
+    html+='<td style="text-align:center">'+sigla(d.adv)+'</td>';
+    html+='<td style="text-align:center">'+sigla(d.revisor)+'</td>';
+    html+='<td style="text-align:center">'+sigla(d.respLanc)+'</td>';
+    html+='<td style="font-size:11px;color:#065f46;font-weight:700">'+e(d.dtRetRev||'—')+'</td>';
+    html+='<td style="font-size:10px;color:#35546D;max-width:180px;white-space:pre-wrap">'+e(d.obsRev||'—')+'</td>';
+    html+='<td style="font-size:11px;color:#065f46;font-weight:700">'+e(d.dtLanc||'—')+'</td>';
+    html+='<td><button class="btn btn-out btn-sm" onclick="event.stopPropagation();openDet('+d.id+')" style="font-size:10px">👁 Ver</button></td>';
+    html+='</tr>';
+  });
+
+  html+='</tbody></table></div></div>';
+  document.getElementById('concluidos-content').innerHTML=html;
+}
+
+function exportConcluidosXLSX(){
+  var rows=DATA.filter(function(d){return String(d.status||'').toLowerCase().includes('concl');});
+  if(!rows.length){toast('Nenhum registro concluído para exportar');return;}
+  var ws_data=[['Pasta','Processo','Reclamante','Tipo Cálculo','Advogado','Revisor','eLaw','Data Revisão','Obs. Revisão','Data Lançamento','Obs. Lançamento']];
+  rows.forEach(function(d){ws_data.push([d.pasta||'',d.proc||'',d.recl||'',d.calc||'',d.adv||'',d.revisor||'',d.respLanc||'',d.dtRetRev||'',d.obsRev||'',d.dtLanc||'',d.obsAdv||'']);});
+  var wb=XLSX.utils.book_new();
+  var ws=XLSX.utils.aoa_to_sheet(ws_data);
+  XLSX.utils.book_append_sheet(wb,ws,'Concluídos');
+  XLSX.writeFile(wb,'lancamentos_concluidos_'+td().replace(/\//g,'-')+'.xlsx');
+}
 
 // ── ATRIBUIR REVISOR ──────────────────────────────────────────────────────────
 var _atribuirId = null;
@@ -880,50 +1009,83 @@ function drawVerbas(){
     }
   }
   var wrap=document.getElementById('verba-rows');
-  wrap.innerHTML = warnBanner + VERBAS.map(function(v,i){
-    // Normalize probabilidade values to display correctly
+
+  var verbasPrincipais = VERBAS.filter(function(v){ return !v.desconto; });
+  var verbasDesconto   = VERBAS.filter(function(v){ return v.desconto;  });
+
+  function renderRow(v, i, isDesc){
     var prob = v.probabilidade||'Possível';
     if(prob==='Provavel') prob='Provável';
     if(prob==='Possivel') prob='Possível';
     VERBAS[i].probabilidade = prob;
     if(v._autoConting === undefined) v._autoConting = true;
     var tipo = document.getElementById('ia-tipo') ? document.getElementById('ia-tipo').value : 'Cálculo';
-    var fase = v.fase && v.fase !== 'Inicial/Pedido' && v.fase !== 'Acordao TST' ? v.fase : tipo;
-    // Visual class based on row type
+    var fase = v.fase && v.fase !== 'Inicial/Pedido' ? v.fase : tipo;
     var rowClass = 'verba-grid';
     if(v.pedido && v.pedido.indexOf('TOTAL DEVIDO') >= 0) rowClass += ' verba-total-row';
     else if(v.pedido && v.pedido.indexOf('↳') >= 0) rowClass += ' verba-sub-row';
-    return '<div class="'+rowClass+'">'+
-      '<input value="'+e(v.pedido)+'" onchange="VERBAS['+i+'].pedido=this.value">'+
+    var rowStyle = isDesc ? 'background:#fff8f8;border-left:3px solid #fca5a5;' : (v._temDesconto ? 'background:#fffbeb;' : '');
+    return '<div class="'+rowClass+'" style="'+rowStyle+'">'+
+      '<input value="'+e(v.pedido)+'" onchange="VERBAS['+i+'].pedido=this.value" '+(isDesc?'style="color:#991b1b"':'')+'>'+
       '<input value="'+e(fase)+'" onchange="VERBAS['+i+'].fase=this.value">'+
       '<input value="'+fmt(v.principal)+'" onchange="VERBAS['+i+'].principal=num(this.value);recalcIA()">'+
       '<input value="'+fmt(v.correcao)+'" onchange="VERBAS['+i+'].correcao=num(this.value);recalcIA()">'+
       '<input value="'+fmt(v.juros)+'" onchange="VERBAS['+i+'].juros=num(this.value);recalcIA()">'+
-      '<b class="verba-total-cell">'+money(v.total)+'</b>'+
-      '<select onchange="VERBAS['+i+'].probabilidade=this.value">'+
-        '<option'+(prob==='Possível'?' selected':'')+'>Possível</option>'+
-        '<option'+(prob==='Provável'?' selected':'')+'>Provável</option>'+
-        '<option'+(prob==='Remoto'?' selected':'')+'>Remoto</option>'+
-      '</select>'+
-      '<input class="verba-conting-input" value="'+fmt(v.contingencia)+'" onchange="VERBAS['+i+'].contingencia=num(this.value);VERBAS['+i+']._autoConting=false;">'+
-      '<input value="'+e(v.obs||'')+'" onchange="VERBAS['+i+'].obs=this.value">'+
-      '<button class="btn btn-out btn-sm" onclick="VERBAS.splice('+i+',1);drawVerbas();">×</button>'+
+      '<b class="verba-total-cell" style="'+(isDesc?'color:#991b1b':'')+'">'+money(v.total)+'</b>'+
+      (isDesc
+        ? '<span style="font-size:9px;color:#991b1b;font-weight:700;padding:2px 6px;background:#fee2e2;border-radius:4px">DESCONTO</span><span></span><span style="font-size:9px;color:#6B7F93">'+e(v.obs||'')+'</span>'
+        : '<select onchange="VERBAS['+i+'].probabilidade=this.value">'+
+            '<option'+(prob==='Possível'?' selected':'')+'>Possível</option>'+
+            '<option'+(prob==='Provável'?' selected':'')+'>Provável</option>'+
+            '<option'+(prob==='Remoto'?' selected':'')+'>Remoto</option>'+
+          '</select>'+
+          '<input class="verba-conting-input" value="'+fmt(v.contingencia)+'" onchange="VERBAS['+i+'].contingencia=num(this.value);VERBAS['+i+']._autoConting=false;">'+
+          '<input value="'+e(v.obs||'')+'" onchange="VERBAS['+i+'].obs=this.value">'
+      )+
+      '<button class="btn btn-out btn-sm" onclick="VERBAS.splice('+i+',1);drawVerbas();" title="Remover">×</button>'+
     '</div>';
-  }).join('');
+  }
+
+  var html = warnBanner;
+
+  // Main verbas
+  verbasPrincipais.forEach(function(v){ html += renderRow(v, VERBAS.indexOf(v), false); });
+
+  // Descontos section
+  if(verbasDesconto.length > 0){
+    html += '<div style="margin:10px 0 4px;padding:6px 10px;background:#fee2e2;border-radius:7px;display:flex;align-items:center;gap:8px">'+
+      '<span style="font-size:10px;font-weight:900;color:#991b1b;text-transform:uppercase;letter-spacing:.5px">⬇ Descontos — valores já incluídos no total acima, a deduzir</span>'+
+      '<span style="font-size:10px;color:#991b1b;margin-left:auto">Esses itens NÃO são somados ao bruto — são subtraídos</span>'+
+    '</div>';
+    verbasDesconto.forEach(function(v){ html += renderRow(v, VERBAS.indexOf(v), true); });
+  }
+
+  wrap.innerHTML = html;
   recalcIA();
 }
 function fmt(n){return (num(n)).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
 function addVerba(v={}){VERBAS.push({pedido:v.pedido||'',fase:v.fase||document.getElementById('ia-tipo')?.value||'Inicial/Pedido',principal:num(v.principal),correcao:num(v.correcao),juros:num(v.juros),total:num(v.total)||(num(v.principal)+num(v.correcao)+num(v.juros)),probabilidade:v.probabilidade||'Possível',contingencia:num(v.contingencia),obs:v.obs||''});drawVerbas()}
 function recalcIA(){
   VERBAS.forEach(function(v){
-    v.total = num(v.principal)+num(v.correcao)+num(v.juros);
-    // Update contingencia to match total if it was auto-set (not manually changed)
-    if(v._autoConting !== false) v.contingencia = v.total;
+    if(!v.desconto) v.total = num(v.principal)+num(v.correcao)+num(v.juros);
+    else v.total = num(v.total)||num(v.principal); // descontos: keep extracted value
+    if(!v.desconto && v._autoConting !== false) v.contingencia = v.total;
   });
-  var t = VERBAS.reduce(function(s,v){return s+num(v.total);},0);
-  document.getElementById('ia-total').textContent = money(t);
-  document.getElementById('ia-alert').innerHTML = t>400000 ? '<div class="info-bar danger"><b>Acima de R$ 400 mil:</b> gerar comunicação ao cliente antes do lançamento.</div>' : '';
-  // Refresh total column cells without full redraw (avoid losing focus)
+  var bruto = VERBAS.filter(function(v){return !v.desconto;}).reduce(function(s,v){return s+num(v.total);},0);
+  var descs  = VERBAS.filter(function(v){return v.desconto;}).reduce(function(s,v){return s+num(v.total);},0);
+  var liquido = bruto - descs;
+
+  var totalEl = document.getElementById('ia-total');
+  if(descs > 0){
+    totalEl.innerHTML =
+      '<span style="font-size:11px;color:#6B7F93">Bruto: <b style="color:#003B5C">'+money(bruto)+'</b></span>' +
+      ' <span style="font-size:11px;color:#991b1b">− Descontos: <b>'+money(descs)+'</b></span>' +
+      ' <span style="font-size:13px;color:#065f46;font-weight:900"> = '+money(liquido)+'</span>';
+  } else {
+    totalEl.textContent = money(bruto);
+  }
+  document.getElementById('ia-alert').innerHTML = liquido>400000 ? '<div class="info-bar danger"><b>Acima de R$ 400 mil:</b> gerar comunicação ao cliente antes do lançamento.</div>' : '';
+  // Refresh total column cells
   var rows = document.querySelectorAll('#verba-rows .verba-grid');
   rows.forEach(function(row, i){
     if(VERBAS[i]){
@@ -977,7 +1139,7 @@ async function preencherComIA(){
 IMPORTANTE: Retorne SOMENTE JSON válido, sem markdown, sem texto explicativo, sem blocos de código.
 
 Formato exato obrigatório:
-{"processo":null,"reclamante":null,"pasta":null,"verbas":[{"pedido":"NOME DA VERBA","fase":"${tipo}","principal":0.00,"correcao":0.00,"juros":0.00,"total":0.00,"probabilidade":"Provável","obs":""}]}
+{"processo":null,"reclamante":null,"pasta":null,"verbas":[{"pedido":"NOME DA VERBA","fase":"${tipo}","principal":0.00,"correcao":0.00,"juros":0.00,"total":0.00,"probabilidade":"Provável","desconto":false,"obs":""}]}
 
 Regras críticas:
 1. Extraia APENAS verbas que tenham pelo menos um valor > 0. Ignore linhas sem valores.
@@ -990,14 +1152,21 @@ Regras críticas:
 8. Inclua verbas de honorários, FGTS, INSS, contribuições SE tiverem valor
 9. Extraia processo (formato 0000000-00.0000.0.00.0000), reclamante e pasta se encontrados
 10. NÃO inclua verbas com todos os valores zerados
+
+REGRAS ANTI-DUPLICAÇÃO — CRÍTICO:
+11. O documento pode ter uma seção "DESCONTOS" ou "Deduções" no final — essas verbas JÁ ESTÃO incluídas no Total Devido. NÃO some novamente.
+12. Marque desconto:true para verbas que aparecem na seção DESCONTOS (ex: Depósito FGTS, INSS/Contribuição Social, IRPF, Dedução de contribuição social).
+13. A linha "Total Devido pelo Reclamado" ou "TOTAL GERAL" é apenas o totalizador — NÃO inclua como verba.
+14. Verbas que aparecem TANTO na lista principal QUANTO nos descontos: inclua UMA VEZ na lista principal (desconto:false) e UMA VEZ na seção de descontos (desconto:true, total=valor a descontar).
+15. Exemplo correto: FGTS aparece como verba devida (desconto:false, total=2.547,14) E como desconto de depósito já feito (desconto:true, total=3.560,30) — são registros separados com desconto:true/false.
+16. O valor líquido final = soma das verbas com desconto:false - soma das verbas com desconto:true.
 ${isPJC ? `
 FORMATO PJC/PJe-Calc — regras adicionais:
-11. O cabeçalho contém: Processo, Reclamante/Exequente, Reclamado/Executado, Data Ajuizamento, Data Liquidação/Cálculo
-12. As verbas estão em tabela com colunas: Verba | Período | Valor Principal | Correção | Juros | Total (ou similar)
-13. "Valor Principal" ou "Principal" = campo principal; "Atualização" ou "Correção" = campo correcao; "Juros" = campo juros
-14. Linha "TOTAL" ou "TOTAL GERAL" no final é o totalizador — NÃO incluir como verba separada
-15. Competências/períodos dentro da mesma verba devem ser somados em uma única linha por verba
-16. Campos como "INSS Reclamada", "FGTS", "Multa 40%", "Honorários" são verbas separadas — incluir
+17. O cabeçalho contém: Processo, Reclamante/Exequente, Reclamado/Executado, Data Ajuizamento, Data Liquidação/Cálculo
+18. As verbas estão em tabela com colunas: Verba | Período | Valor Principal | Correção | Juros | Total (ou similar)
+19. "Valor Principal" ou "Principal" = campo principal; "Atualização" ou "Correção" = campo correcao; "Juros" = campo juros
+20. Linha "TOTAL" ou "TOTAL GERAL" no final é o totalizador — NÃO incluir como verba separada
+21. Competências/períodos dentro da mesma verba devem ser somados em uma única linha por verba
 ` : ''}
 
 ${isXlsx ? 'DADOS DA PLANILHA (colunas separadas por |):' : 'TEXTO DO DOCUMENTO:'}
@@ -1075,9 +1244,19 @@ ${text.substring(0, 18000)}`;
         juros: num(v.juros)||0,
         total: num(v.total)||(num(v.principal)+num(v.correcao)+num(v.juros)),
         probabilidade: v.probabilidade||'Possível',
+        desconto: !!v.desconto,
         contingencia: 0,
         obs: v.obs||'Extraído pela IA Claude'
       }));
+
+      // Post-process: detect duplicate verbas (same name appearing as both verba and desconto)
+      // and flag any items in the desconto section that match a main verba by name
+      var nomes_desconto = VERBAS.filter(function(v){ return v.desconto; }).map(function(v){ return norm(v.pedido); });
+      VERBAS.forEach(function(v){
+        if(!v.desconto && nomes_desconto.some(function(nd){ return nd && norm(v.pedido).includes(nd.substring(0,12)); })){
+          v._temDesconto = true; // mark that this verba has a corresponding deduction
+        }
+      });
       drawVerbas();
       status.innerHTML = `✅ ${VERBAS.length} verbas preenchidas automaticamente pela IA!`;
       toast(`✨ ${VERBAS.length} verbas identificadas e preenchidas!`);
